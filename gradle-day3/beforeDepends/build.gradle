@@ -1,0 +1,16 @@
+task before{
+	println 'before'
+}
+
+task after(dependsOn:before){
+	doFirst{println 'after'}
+}
+ 
+afterEvaluate {
+	tasks.matching {
+		it.name.startsWith('compile')  
+	}.each { tk ->
+		tk.dependsOn(before)
+	}
+}
+//½áÊø

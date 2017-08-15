@@ -1,0 +1,15 @@
+task combineFile{
+	def sources = fileTree('sourceDir')
+	def destination = file('destination.txt')
+	
+	inputs.dir sources
+	outputs.file destination
+	
+	doLast{
+		destination.withPrintWriter{writer ->
+			sources.each{s->
+				writer.println s.text
+			}		
+		}
+	}
+}

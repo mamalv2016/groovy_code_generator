@@ -1,3 +1,32 @@
-task helloworld <<{ 
-		println "hello world" 
+//apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin:'application'
+
+ext{
+    // java文件编码方式设置为utf-8
+    compileGroovy.options.encoding = 'UTF-8'
+    sourceCompatibility = 1.7
+}
+
+task utf8 {
+	doFirst{println 'hello'}
+	doLast{println 'last'}
+}
+//mainClassName = 'com.codegenerate.UrlConnection'     //测试连接url
+ 
+mainClassName = 'com.codegenerate.ConsoleProperties'	
+
+//mainClassName = 'com.codegenerate.MopInstance'	
+
+repositories {
+    mavenCentral()	 
+	flatDir { dirs 'lib' }
+}
+ 
+dependencies {
+    compile module('org.codehaus.groovy:groovy-all:2.4.10'){
+		dependency('mysql:mysql-connector-java:5.1.24') 
+		dependency('org.codehaus.groovy:http-builder:0.4.0') 
+	}
+    testCompile 'junit:junit:4.12'
 }

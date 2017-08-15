@@ -1,0 +1,14 @@
+task distri <<{
+	println "build version ==$version"
+}
+task release(dependsOn:'distri')<<{
+	println 'now release'
+}
+gradle.taskGraph.whenReady{
+	t->
+	if(t.hasTask(release)){
+		version = '1.0'
+	}else{
+		version = '1.0-SNAPSHOT'
+	}
+}
